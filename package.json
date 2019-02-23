@@ -11,8 +11,8 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "cross-env NODE_ENV=test mocha './test/**/*.test.js' --exit"
   },
-  "author": "Brad Traversy",
-  "license": "MIT",
+  "author": "",
+  "license": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
