@@ -120,14 +120,14 @@ describe("User's profile validation",()=>{
     })
 })
 
-//sad paths
+//Happy paths
 
 describe('profile api end points',()=>{
     before(done=>{
         done();
     });
     context('checking profile of the user',()=>{
-      console.log(global.JwtToken)
+      //console.log(global.JwtToken)
        it('post the users profile',(done)=>{
            
            request(app)
@@ -137,7 +137,7 @@ describe('profile api end points',()=>{
            .send({handle:"test514",status:"test",skills:"test"})
            .expect(200 )
            .expect(response =>{
-             console.log(response.body)
+             //console.log(response.body)
                let{_id,handle,status,skills} = response.body
                expect(_id).to.be.a('string');
                expect(handle).to.be.a('string');
@@ -154,6 +154,9 @@ describe('profile api end points',()=>{
        })
     });
     context("current user",()=>{
+      before(done=>{
+        done();
+    });
       it("show the current user",(done)=>{
         request(app)
         .get('/api/users/current')
@@ -162,7 +165,7 @@ describe('profile api end points',()=>{
         .set("Accept", "application/json")
         .expect(200 )
         .expect(response => {
-          console.log(response.body)
+          //console.log(response.body)
           expect(response.body).to.have.ownProperty('email');
           expect(response.body.email).to.be.equal("test@hashcorp.com");
          
@@ -173,4 +176,35 @@ describe('profile api end points',()=>{
         })
       })
     })
+    //sad paths
+    context('/api/profile/experience posting profile of the user',()=>{
+        
+      it('post the users experience profile',(done)=>{
+          request(app)
+          .post('/api/profile/experience')
+          .send({email:"test@hashcorp.com",password:'123456',title:'test',company:'test',from:2019-01-01})
+          .set("Authorization",global.JwtToken)
+          .set("Accept", "application/json")
+          .expect(500)
+          .expect(response=>{
+              console.log(response.body);
+             let{_id,title,company,from} =response.body
+             expect(_id).to.be.a('string');
+             expect(title).to.have.ownProperty('title');
+             expect(title).equal(title);
+             expect(company).to.have.ownProperty('company');
+             expect(company).equal(company);
+             expect(from).to.have.ownProperty('from');
+             expect(from).equal(from);
+          })
+          .end(err => {
+             if (err) return done(err);
+             done();
+           });
+      })
+   });
 });
+
+
+
+

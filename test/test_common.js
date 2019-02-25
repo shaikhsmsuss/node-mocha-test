@@ -62,22 +62,20 @@ const validUserData = {
   password: "123456",
   password2: "123456",
   handle:'shaikh',
-  company:'cosmos',
   location:'hyderabad',
   handle:'shaikh',
   status:'developer',
   skills:['test','nodejs'],
-  company:'cosmos',
   website:'www.facebook.com',
-  social:{
-      youtube:'www.youtube.com',
-      twitter:'www.twitter.com',
-      facebook:'www.facebook.com',
-      linkedin:'www.linkedin.com',
-      instagram:'www.instagram.com'
-  },
-};
+  title:'test',
+  company:'hashcorp',
+  from:2019-01-01,
+  school:'test',
+  degree:'test',
+  fieldofstudy:'test',
+  text:'this is post route',
 
+}
 
 module.exports = {
   getCurrentNodeEnv,

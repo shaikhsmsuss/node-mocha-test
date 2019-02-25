@@ -197,6 +197,7 @@ router.post(
 
       profile.save().then(profile => res.json(profile));
     });
+    
   }
 );
 
@@ -224,13 +225,15 @@ router.post(
         to: req.body.to,
         current: req.body.current,
         description: req.body.description
+        
       };
-
+      console.log(res.body)
       // Add to exp array
       profile.education.unshift(newEdu);
 
       profile.save().then(profile => res.json(profile));
     });
+    console.log(res.body)
   }
 );
 
