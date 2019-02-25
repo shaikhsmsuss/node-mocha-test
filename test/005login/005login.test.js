@@ -1,10 +1,10 @@
 const expect = require("chai").expect;
 const sinon = require("sinon");
 const request = require("supertest");
-const app = require('../server');
+const app = require('../../server');
 
-const validUserData = require('../test/test_common');
-const validateLoginInput = require('../validation/login');
+const validUserData = require('../test_common');
+const validateLoginInput = require('../../validation/login');
 
 //Happy tests
 describe('User authentication',()=>{

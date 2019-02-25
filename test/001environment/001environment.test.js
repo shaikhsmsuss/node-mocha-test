@@ -8,9 +8,9 @@ const {
   getTestMongo,
   canConnectToDB,
   purgeDB
-} = require("./test_common");
+} = require("../test_common");
 
-const  app  = require('../server');
+const  app  = require('../../server');
 
 // // get current NODE_ENV
 const currentEnv = getCurrentNodeEnv(); //process.env.NODE_ENV;

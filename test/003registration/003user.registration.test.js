@@ -2,11 +2,11 @@ const chai = require('chai');
 const expect = chai.expect;
 const request = require('supertest');
 
-const {purgeDB,validUserData} = require('./test_common');
+const {purgeDB,validUserData} = require('../test_common');
 
-const validateRegisterInput = require('../validation/register')
+const validateRegisterInput = require('../../validation/register')
 
-const app = require('../server');
+const app = require('../../server');
 
 const longString = "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz";
 

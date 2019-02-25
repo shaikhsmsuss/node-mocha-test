@@ -1,10 +1,10 @@
 const expect = require("chai").expect;
 const request = require("supertest");
-const  app  = require("../server");
+const  app  = require("../../server");
 
-const validUserData= require('../test/test_common');
+const validUserData= require('../test_common');
 
-const validateProfileInput = require('../validation/experience');
+const validateProfileInput = require('../../validation/experience');
 
 
 describe("009 experience api",()=>{
