@@ -52,7 +52,7 @@ const purgeDB = async () => {
     await mongoose.connection.db.dropCollection("profile");
     
   } catch (error) {
-    // console.log("collections not available");
+     console.log(error);
   }
 };
 

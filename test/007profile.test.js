@@ -2,11 +2,11 @@ const expect = require("chai").expect;
 const request = require("supertest");
 const  app  = require("../server");
 
-const {purgeDB,validUserData} = require('../test/test_common');
+const validUserData= require('../test/test_common');
 
 const validateProfileInput = require('../validation/profile');
 
-const lognString = "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz";
+// const lognString = "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz";
 
 validLoginData = {
     email:"test@hashcorp.com",
@@ -124,29 +124,28 @@ describe("User's profile validation",()=>{
 
 describe('profile api end points',()=>{
     before(done=>{
-        purgeDB();
         done();
     });
     context('checking profile of the user',()=>{
-       it('post the users profile',function(done){
-           this.timeout(20000)
+      console.log(global.JwtToken)
+       it('post the users profile',(done)=>{
+           
            request(app)
            .post('/api/profile')
            .set("Authorization",global.JwtToken)
            .set("Accept", "application/json")
-           .send(validUserData)
-           .expect(200)
+           .send({handle:"test514",status:"test",skills:"test"})
+           .expect(200 )
            .expect(response =>{
+             console.log(response.body)
                let{_id,handle,status,skills} = response.body
-               global.JwtToken = response.body.token;
-               expect(response.body.token).to.be.a("string");
                expect(_id).to.be.a('string');
                expect(handle).to.be.a('string');
-               expect(handle).to.equal(validUserData.handle);
+               expect(handle).to.equal(handle);
                expect(status).to.be.a('string');
-               expect(status).to.equal(validUserData.status);
+               expect(status).to.equal(status);
                expect(skills).to.be.a('array');
-               expect(handle).to.equal(validUserData.skills);
+               expect(skills).to.equal(skills);
            })
            .end(err=>{
                if(err) return done(err);
@@ -154,4 +153,24 @@ describe('profile api end points',()=>{
            })
        })
     });
+    context("current user",()=>{
+      it("show the current user",(done)=>{
+        request(app)
+        .get('/api/users/current')
+        .send({...validUserData ,name:'User',email:'test@hashcorp.com'})
+        .set("Authorization",global.JwtToken)
+        .set("Accept", "application/json")
+        .expect(200 )
+        .expect(response => {
+          console.log(response.body)
+          expect(response.body).to.have.ownProperty('email');
+          expect(response.body.email).to.be.equal("test@hashcorp.com");
+         
+        })
+        .end(err =>{
+          if(err) return done(err);
+          done();
+        })
+      })
+    })
 });
