@@ -2,7 +2,7 @@ const expect = require("chai").expect;
 const request = require("supertest");
 const  app  = require("../server");
 
-const validUserData = require('../test/test_common');
+const {purgeDB,validUserData} = require('../test/test_common');
 
 const validateProfileInput = require('../validation/profile');
 
@@ -120,27 +120,38 @@ describe("User's profile validation",()=>{
     })
 })
 
+//sad paths
+
 describe('profile api end points',()=>{
     before(done=>{
+        purgeDB();
         done();
     });
     context('checking profile of the user',()=>{
-        it('if there is no profile for the user',(done)=>{
-            request(app)
-            .get("/api/profile/handle/:handle")
-            .send({email:'test@test.com',password:'123456'})
-            // .set("Authorization", global.JwtToken)
-            .set("Accept","application/json")
-            .expect(200)
-            .expect(response=>{
-                // expect(response.body.user).to.be.a('object')
-                expect(response.body).to.equal('There is no profile for this user');
-                // expect(response.body.status).to.equal(404);
-            })
-            .end(err=>{
-                if(err) return done(err);
-                done();
-            })
-        })
-    })
-})
+       it('post the users profile',function(done){
+           this.timeout(20000)
+           request(app)
+           .post('/api/profile')
+           .set("Authorization",global.JwtToken)
+           .set("Accept", "application/json")
+           .send(validUserData)
+           .expect(200)
+           .expect(response =>{
+               let{_id,handle,status,skills} = response.body
+               global.JwtToken = response.body.token;
+               expect(response.body.token).to.be.a("string");
+               expect(_id).to.be.a('string');
+               expect(handle).to.be.a('string');
+               expect(handle).to.equal(validUserData.handle);
+               expect(status).to.be.a('string');
+               expect(status).to.equal(validUserData.status);
+               expect(skills).to.be.a('array');
+               expect(handle).to.equal(validUserData.skills);
+           })
+           .end(err=>{
+               if(err) return done(err);
+               done();
+           })
+       })
+    });
+});

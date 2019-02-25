@@ -49,6 +49,7 @@ const canConnectToDB = async mongoDBUri => {
 const purgeDB = async () => {
   try {
     await mongoose.connection.db.dropCollection("users");
+    await mongoose.connection.db.dropCollection("profile");
     
   } catch (error) {
     // console.log("collections not available");
@@ -61,57 +62,22 @@ const validUserData = {
   password: "123456",
   password2: "123456",
   handle:'shaikh',
+  company:'cosmos',
+  location:'hyderabad',
+  handle:'shaikh',
   status:'developer',
-  skills:'testing',
-  website:'',
-  youtube:'www.youtube.com',
-  twitter:'www.twitter.com',
-  facebook:'www.facebook.com',
-  linkedin:'www.linkedin.com',
-  instagram:'www.instagram.com'
+  skills:['test','nodejs'],
+  company:'cosmos',
+  website:'www.facebook.com',
+  social:{
+      youtube:'www.youtube.com',
+      twitter:'www.twitter.com',
+      facebook:'www.facebook.com',
+      linkedin:'www.linkedin.com',
+      instagram:'www.instagram.com'
+  },
 };
 
-const setVerificationKey = async (userData, done) => {
-  await User.findOne({
-    email: userData.email
-  })
-    .then(user => {
-      if (user) {
-        user.verificationkey = userData.verificationkey;
-        user.save().then(user => {
-          // console.log("*********** ", user);
-          done();
-        });
-      } else {
-        done();
-      }
-    })
-    .catch(error => {
-      console.log("Setting verification key error ", error);
-      done();
-    });
-};
-
-const setPassKey = async (userData, done) => {
-  await User.findOne({
-    email: userData.email
-  })
-    .then(user => {
-      if (user) {
-        user.passkey = userData.passkey;
-        user.save().then(user => {
-          // console.log("*********** ", user);
-          done();
-        });
-      } else {
-        done();
-      }
-    })
-    .catch(error => {
-      console.log("Setting pass key error ", error);
-      done();
-    });
-};
 
 module.exports = {
   getCurrentNodeEnv,
@@ -121,6 +87,6 @@ module.exports = {
   canConnectToDB,
   purgeDB,
   validUserData,
-  setVerificationKey,
-  setPassKey
+  // setVerificationKey,
+  // setPassKey
 };

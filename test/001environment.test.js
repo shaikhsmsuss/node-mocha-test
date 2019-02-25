@@ -30,6 +30,15 @@ describe("001 Testing Environments Requirements", () => {
       done();
     });
   });
+  const purgeDB = async () => {
+    try {
+      await mongoose.connection.db.dropCollection("users");
+      await mongoose.connection.db.dropCollection("profile");
+      
+    } catch (error) {
+      // console.log("collections not available");
+    }
+  };
 
   context("Running tests if...", () => {
     it("current NODE_ENV is `test`", () => {
