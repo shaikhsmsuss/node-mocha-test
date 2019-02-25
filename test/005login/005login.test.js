@@ -7,7 +7,7 @@ const validUserData = require('../test_common');
 const validateLoginInput = require('../../validation/login');
 
 //Happy tests
-describe('User authentication',()=>{
+describe.only('User authentication',()=>{
     let returnData = validateLoginInput(validUserData);
     context('Login invalid if ',()=>{
         it("Email address is invalid", () => {
@@ -100,6 +100,7 @@ describe('User authentication',()=>{
                 expect(response.body.success).to.be.true;
                 expect(response.body).to.have.ownProperty("token");
                 expect(response.body.token).to.be.a("string");
+                // console.log(global.JwtToken)
               })
               .end(err => {
                 if (err) return done(err);

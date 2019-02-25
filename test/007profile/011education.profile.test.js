@@ -7,7 +7,7 @@ const validUserData= require('../test_common');
 const validateProfileInput = require('../../validation/education');
 
 
-describe("011 education api",()=>{
+describe.only("011 education api",()=>{
     before(done =>{
         if(global.JwtToken){
             done();

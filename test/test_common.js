@@ -13,7 +13,10 @@ const getCurrentNodeEnv = () => {
 
 const getCurrentMongo = () => {
   currentEnv = getCurrentNodeEnv();
-  return process.env[`MONGO_URI_${currentEnv}`.toUpperCase()];
+  
+  let mongoDBUri =  process.env[`MONGO_URI_${currentEnv}`.toUpperCase()];
+  // console.log("=====",mongoDBUri);
+  return mongoDBUri;
 };
 
 const getTestMongo = () => {
@@ -39,6 +42,7 @@ const canConnectToDB = async mongoDBUri => {
     })
     .then(() => {
       // mongoose.connection.close();
+      // console.log("DB Connection successful!")
       return true;
     })
     .catch(err => {
@@ -46,14 +50,29 @@ const canConnectToDB = async mongoDBUri => {
     });
 };
 
-const purgeDB = async () => {
+const purgeDB = (done) => {
+  // console.log("Current Environment - ", process.env.NODE_ENV)
   try {
-    await mongoose.connection.db.dropCollection("users");
-    await mongoose.connection.db.dropCollection("profile");
+    mongoose.connection.db.listCollections().toArray(function(err, names) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            names.forEach(function(e,i,a) {
+                mongoose.connection.db.dropCollection(e.name);
+                // console.log("--->>", e.name);
+            });
+            // console.log("DB Collections ",names)
+        }
+        done()
+    });
     
   } catch (error) {
-     console.log(error);
+    done()
   }
+  
+  // done()
+  
 };
 
 const validUserData = {
@@ -63,7 +82,7 @@ const validUserData = {
   password2: "123456",
   handle:'shaikh',
   location:'hyderabad',
-  handle:'shaikh',
+  // handle:'shaikh',
   status:'developer',
   skills:['test','nodejs'],
   website:'www.facebook.com',

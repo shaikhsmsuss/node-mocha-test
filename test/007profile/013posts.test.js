@@ -7,7 +7,7 @@ const validUserData= require('../test_common');
 const validatePostinput = require('../../validation/post');
 
 
-describe("013 experience api",()=>{
+describe.only("013 experience api",()=>{
     before(done =>{
         if(global.JwtToken){
             done();
@@ -35,7 +35,7 @@ describe("013 experience api",()=>{
     })    
 })
 
-describe('post routes',()=>{
+describe.only('post routes',()=>{
     before(done=>{
         done();
     });

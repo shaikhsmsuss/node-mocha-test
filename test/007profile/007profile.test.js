@@ -13,7 +13,7 @@ validLoginData = {
     password:"123456"
 }
 
-describe("007 Requirements for getting current User's Profile",()=>{
+describe.only("007 Requirements for getting current User's Profile",()=>{
     before(done =>{
         if(global.JwtToken){
             done();
@@ -50,7 +50,7 @@ describe("007 Requirements for getting current User's Profile",()=>{
     });
 });
 
-describe("Profile validation",()=>{
+describe.only("Profile validation",()=>{
     before(done =>{
         done();
     });
@@ -97,7 +97,7 @@ describe("Profile validation",()=>{
     })
 })
 //Sad path
-describe("User's profile validation",()=>{
+describe.only("User's profile validation",()=>{
     before(done=>{
         done();
     });
@@ -122,11 +122,9 @@ describe("User's profile validation",()=>{
 
 //Happy paths
 
-describe('profile api end points',()=>{
-    before(done=>{
-        done();
-    });
-    context('checking profile of the user',()=>{
+describe.only('profile api end points',()=>{
+    
+    context.only('checking profile of the user',()=>{
       //console.log(global.JwtToken)
        it('post the users profile',(done)=>{
            
@@ -134,10 +132,10 @@ describe('profile api end points',()=>{
            .post('/api/profile')
            .set("Authorization",global.JwtToken)
            .set("Accept", "application/json")
-           .send({handle:"test514",status:"test",skills:"test"})
-           .expect(200 )
+           .send({handle:"test14",status:"test",skills:"test"})
+           .expect(200)
            .expect(response =>{
-             //console.log(response.body)
+             console.log(response.body)
                let{_id,handle,status,skills} = response.body
                expect(_id).to.be.a('string');
                expect(handle).to.be.a('string');
@@ -156,7 +154,7 @@ describe('profile api end points',()=>{
     context("current user",()=>{
       before(done=>{
         done();
-    });
+      });
       it("show the current user",(done)=>{
         request(app)
         .get('/api/users/current')
@@ -177,9 +175,9 @@ describe('profile api end points',()=>{
       })
     })
     //sad paths
-    context('/api/profile/experience posting profile of the user',()=>{
-        
-      it('post the users experience profile',(done)=>{
+    context.skip('/api/profile/experience posting profile of the user',()=>{
+        console.log("--------------------not running-----------")
+      it.skip('post the users experience profile',(done)=>{
           request(app)
           .post('/api/profile/experience')
           .send({email:"test@hashcorp.com",password:'123456',title:'test',company:'test',from:2019-01-01})

@@ -11,11 +11,11 @@ const app = require('../../server');
 const longString = "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz";
 
 //Happy tests
-describe('002 User registration requirements',()=>{
-    before(done =>{
-        purgeDB();
-        done();
-    });
+describe.only('002 User registration requirements',()=>{
+    // before(done =>{
+    //     purgeDB(done);
+    // });
+
     let returnData = validateRegisterInput(validUserData);
 
     context('Registration valid if',()=>{

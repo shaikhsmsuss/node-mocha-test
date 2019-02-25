@@ -15,7 +15,7 @@ const  app  = require('../../server');
 // // get current NODE_ENV
 const currentEnv = getCurrentNodeEnv(); //process.env.NODE_ENV;
 
-describe("001 Testing Environments Requirements", () => {
+describe.only("001 Testing Environments Requirements", () => {
   before(done => {
     global.JwtToken = null;
     stopIfNotTestEnv(currentEnv);
@@ -26,19 +26,8 @@ describe("001 Testing Environments Requirements", () => {
   });
 
   after(done => {
-    purgeDB().then(() => {
-      done();
-    });
+    purgeDB(done);
   });
-  const purgeDB = async () => {
-    try {
-      await mongoose.connection.db.dropCollection("users");
-      await mongoose.connection.db.dropCollection("profile");
-      
-    } catch (error) {
-      // console.log("collections not available");
-    }
-  };
 
   context("Running tests if...", () => {
     it("current NODE_ENV is `test`", () => {

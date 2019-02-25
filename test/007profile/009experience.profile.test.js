@@ -7,7 +7,7 @@ const validUserData= require('../test_common');
 const validateProfileInput = require('../../validation/experience');
 
 
-describe("009 experience api",()=>{
+describe.only("009 experience api",()=>{
     before(done =>{
         if(global.JwtToken){
             done();
