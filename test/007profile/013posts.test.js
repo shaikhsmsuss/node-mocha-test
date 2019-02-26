@@ -32,8 +32,8 @@ describe.only("013 experience api",()=>{
               "Post must be between 10 and 300 characters"
             );
         });
-    })    
-})
+    });    
+});
 
 describe.only('post routes',()=>{
     before(done=>{

@@ -16,7 +16,7 @@ describe.only("011 education api",()=>{
         }
     });
     context("/api/profile/education validation",()=>{
-        it('school is omitted',()=>{
+        it('001school is omitted',()=>{
             let returnData = validateProfileInput({...validUserData ,school :""})
             expect(returnData.isValid).to.be.false;
             expect(returnData.errors).to.have.ownProperty("school");
@@ -24,7 +24,7 @@ describe.only("011 education api",()=>{
               "School field is required"
             );
         })
-        it('degree is omitted',()=>{
+        it('002degree is omitted',()=>{
             returnData = validateProfileInput({...validUserData ,degree :""})
             expect(returnData.isValid).to.be.false;
             expect(returnData.errors).to.have.ownProperty("degree");
@@ -32,7 +32,7 @@ describe.only("011 education api",()=>{
               "Degree field is required"
             );
         })
-        it('fieldofstudy is omitted',()=>{
+        it('003fieldofstudy is omitted',()=>{
             returnData = validateProfileInput({...validUserData ,fieldofstudy :""})
             expect(returnData.isValid).to.be.false;
             expect(returnData.errors).to.have.ownProperty("degree");
@@ -40,51 +40,44 @@ describe.only("011 education api",()=>{
               "Field of study field is required"
             );
         })
-        it('from date is omitted',()=>{
+        it('004from date is omitted',()=>{
             returnData = validateProfileInput({...validUserData ,from :""})
             expect(returnData.isValid).to.be.false;
             expect(returnData.errors).to.have.ownProperty("from");
             expect(returnData.errors.from).to.equal(
               "From date field is required"
             );
-        })
-    })
-})
+        });
+    });
+});
 
 //sad paths
-// describe('profile education route',()=>{
-//     before(done=>{
-//       done();
-//   });
-//   context('/api/profile/education',()=>{
-  
-  
-//     it('Post the education data',(done)=>{
-//       request(app)
-//       .post('/api/profile/education')
-//       .send({education:[
-//         {school:'test',degree:'test',fieldofstudy:'test',from:2019-01-01}
-//       ]})
-//       .set("Authorization",global.JwtToken)
-//       .set("Accept", "application/json")
-//       .expect(400 )
-//       .expect(response =>{
-//          console.log(response.body)
-//           let{_id,school,degree,fieldofstudy,from} = response.body
-//          expect(_id).to.be.a('string');
-//           expect(school).to.be.a('string');
-//          expect(school).to.equal(school);
-//           expect(degree).to.be.a('string');
-//           expect(degree).to.equal(degree);
-//           expect(fieldofstudy).to.be.a('string');
-//           expect(fieldofstudy).to.equal(fieldofstudy);
-//           expect(from).to.be.a('date');
-//           expect(from).to.equal(from);
-//       })
-//       .end(err =>{
-//         if(err) return done(err);
-//         done();
-//       })
-//     })
-//   })
-//   })
+describe('002profile education route',()=>{
+  context('001/api/profile/education',()=>{
+        it('Post the education data',(done)=>{
+             request(app)
+            .post('/api/profile/education')
+            .send({school:'test',degree:'test',fieldofstudy:'test',from:2019-01-01})
+            .set("Authorization",global.JwtToken)
+            .set("Accept", "application/json")
+            .expect(200)
+            .expect(response =>{
+                console.log(response.body)
+                let{_id,school,degree,fieldofstudy,from} = response.body
+                expect(_id).to.be.a('string');
+                expect(school).to.be.a('string');
+                expect(school).to.equal(school);
+                expect(degree).to.be.a('string');
+                expect(degree).to.equal(degree);
+                expect(fieldofstudy).to.be.a('string');
+                expect(fieldofstudy).to.equal(fieldofstudy);
+                expect(from).to.be.a('date');
+                expect(from).to.equal(from);
+            })
+            .end(err =>{
+                if(err) return done(err);
+                done();
+            });
+        });
+    });   
+});

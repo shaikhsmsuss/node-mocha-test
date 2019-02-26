@@ -13,8 +13,7 @@ const getCurrentNodeEnv = () => {
 
 const getCurrentMongo = () => {
   currentEnv = getCurrentNodeEnv();
-  
-  let mongoDBUri =  process.env[`MONGO_URI_${currentEnv}`.toUpperCase()];
+    let mongoDBUri =  process.env[`MONGO_URI_${currentEnv}`.toUpperCase()];
   // console.log("=====",mongoDBUri);
   return mongoDBUri;
 };
@@ -70,9 +69,6 @@ const purgeDB = (done) => {
   } catch (error) {
     done()
   }
-  
-  // done()
-  
 };
 
 const validUserData = {
@@ -82,7 +78,6 @@ const validUserData = {
   password2: "123456",
   handle:'shaikh',
   location:'hyderabad',
-  // handle:'shaikh',
   status:'developer',
   skills:['test','nodejs'],
   website:'www.facebook.com',
@@ -93,7 +88,6 @@ const validUserData = {
   degree:'test',
   fieldofstudy:'test',
   text:'this is post route',
-
 }
 
 module.exports = {
@@ -104,6 +98,4 @@ module.exports = {
   canConnectToDB,
   purgeDB,
   validUserData,
-  // setVerificationKey,
-  // setPassKey
 };

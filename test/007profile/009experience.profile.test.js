@@ -39,9 +39,8 @@ describe.only("009 experience api",()=>{
             expect(returnData.errors.from).to.equal(
               "From date field is required"
             );
-        })
-    })//context
-    
-})//describe
+        });
+    });
+});
 
 
