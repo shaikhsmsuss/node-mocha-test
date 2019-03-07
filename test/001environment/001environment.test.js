@@ -10,12 +10,12 @@ const {
   purgeDB
 } = require("../test_common");
 
-const  app  = require('../../server');
+const app = require("../../server");
 
 // // get current NODE_ENV
 const currentEnv = getCurrentNodeEnv(); //process.env.NODE_ENV;
 
-describe.only("001 Testing Environments Requirements", () => {
+describe("001 Testing Environments Requirements", () => {
   before(done => {
     global.JwtToken = null;
     stopIfNotTestEnv(currentEnv);
@@ -52,9 +52,9 @@ describe.only("001 Testing Environments Requirements", () => {
         .get("/test")
         .expect(200)
         .end((err, response) => {
-          expect(response.body)
-            // .to.have.property("status")
-            // .to.equal("success");
+          expect(response.body);
+          // .to.have.property("status")
+          // .to.equal("success");
           done(err);
         });
     });
